@@ -8,3 +8,9 @@ http://leeseshia.org/download.html
 
 ChibiOS/RT docs:
 http://chibios.sourceforge.net/html/index.html
+
+StackOverflow post about accessing registers, has some example code. 
+
+First example shows the use of C functions like mmap and open to create a file object for the GPIO addresses. 
+We need to port this example over to ChibiOS, which doesn't have mmap or files. 
+http://elinux.org/RPi_GPIO_Code_Samples
