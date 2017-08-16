@@ -8,3 +8,13 @@ http://leeseshia.org/download.html
 
 ChibiOS/RT docs:
 http://chibios.sourceforge.net/html/index.html
+
+First example shows the use of C functions like mmap and open to create a file object for the GPIO addresses. 
+We need to port this example over to ChibiOS, which doesn't have mmap or files. 
+http://elinux.org/RPi_GPIO_Code_Samples
+
+BCM2835 data sheet, has the memory addresses of the peripheral registers (GPIO included). 
+https://www.raspberrypi.org/app/uploads/2012/02/BCM2835-ARM-Peripherals.pdf
+
+ARM memory explanation, goes into the functions of the different registers in substantial detail.
+http://engenuics.com/wp-content/uploads/notes_mpgl1_chapter6.pdf
