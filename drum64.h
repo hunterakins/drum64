@@ -41,8 +41,10 @@ typedef struct {
 // initialize GPIO pins for reading from shift register
 int Controller_Init();
 
+int Request();
+
 // the Poll function to write shift register vals into the controller struct
-int Poll(controller_t* controller);
+int Poll(controller_t *controller);
 
 
 

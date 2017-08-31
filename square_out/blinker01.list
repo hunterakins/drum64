@@ -6,40 +6,26 @@ Disassembly of section .text:
 
 00008000 <_start>:
     8000:	e3a0d902 	mov	sp, #32768	; 0x8000
-    8004:	eb000005 	bl	8020 <notmain>
+    8004:	eb000001 	bl	8010 <notmain>
 
 00008008 <hang>:
     8008:	eafffffe 	b	8008 <hang>
 
-0000800c <PUT32>:
-    800c:	e5801000 	str	r1, [r0]
-    8010:	e12fff1e 	bx	lr
+0000800c <dummy>:
+    800c:	e12fff1e 	bx	lr
 
-00008014 <GET32>:
-    8014:	e5900000 	ldr	r0, [r0]
-    8018:	e12fff1e 	bx	lr
-
-0000801c <dummy>:
-    801c:	e12fff1e 	bx	lr
-
-00008020 <notmain>:
-    8020:	e92d4010 	push	{r4, lr}
-    8024:	e59f002c 	ldr	r0, [pc, #44]	; 8058 <notmain+0x38>
-    8028:	ebfffff9 	bl	8014 <GET32>
-    802c:	e3c01c0e 	bic	r1, r0, #3584	; 0xe00
-    8030:	e3811c02 	orr	r1, r1, #512	; 0x200
-    8034:	e59f001c 	ldr	r0, [pc, #28]	; 8058 <notmain+0x38>
-    8038:	ebfffff3 	bl	800c <PUT32>
-    803c:	e3a01008 	mov	r1, #8
-    8040:	e59f0014 	ldr	r0, [pc, #20]	; 805c <notmain+0x3c>
-    8044:	ebfffff0 	bl	800c <PUT32>
-    8048:	e3a01008 	mov	r1, #8
-    804c:	e59f000c 	ldr	r0, [pc, #12]	; 8060 <notmain+0x40>
-    8050:	ebffffed 	bl	800c <PUT32>
-    8054:	eafffff8 	b	803c <notmain+0x1c>
-    8058:	20200000 	eorcs	r0, r0, r0
-    805c:	2020001c 	eorcs	r0, r0, ip, lsl r0
-    8060:	20200028 	eorcs	r0, r0, r8, lsr #32
+00008010 <notmain>:
+    8010:	e59f0020 	ldr	r0, [pc, #32]	; 8038 <notmain+0x28>
+    8014:	e3a02008 	mov	r2, #8
+    8018:	e1a03000 	mov	r3, r0
+    801c:	e5901000 	ldr	r1, [r0]
+    8020:	e3c11c0e 	bic	r1, r1, #3584	; 0xe00
+    8024:	e3811c02 	orr	r1, r1, #512	; 0x200
+    8028:	e5801000 	str	r1, [r0]
+    802c:	e583201c 	str	r2, [r3, #28]
+    8030:	e5832028 	str	r2, [r3, #40]	; 0x28
+    8034:	eafffffc 	b	802c <notmain+0x1c>
+    8038:	20200000 	eorcs	r0, r0, r0
 
 Disassembly of section .ARM.attributes:
 
@@ -54,38 +40,23 @@ Disassembly of section .ARM.attributes:
   1c:	12010901 	andne	r0, r1, #16384	; 0x4000
   20:	15011404 	strne	r1, [r1, #-1028]	; 0xfffffbfc
   24:	18031701 	stmdane	r3, {r0, r8, r9, sl, ip}
-  28:	Address 0x00000028 is out of bounds.
+  28:	Address 0x0000000000000028 is out of bounds.
 
 
 Disassembly of section .comment:
 
 00000000 <.comment>:
-   0:	3a434347 	bcc	10d0d24 <notmain+0x10c8d04>
-   4:	4e472820 	cdpmi	8, 4, cr2, cr7, cr0, {1}
-   8:	6f542055 	svcvs	0x00542055
-   c:	20736c6f 	rsbscs	r6, r3, pc, ror #24
-  10:	20726f66 	rsbscs	r6, r2, r6, ror #30
-  14:	204d5241 	subcs	r5, sp, r1, asr #4
-  18:	65626d45 	strbvs	r6, [r2, #-3397]!	; 0xfffff2bb
-  1c:	64656464 	strbtvs	r6, [r5], #-1124	; 0xfffffb9c
-  20:	6f725020 	svcvs	0x00725020
-  24:	73736563 	cmnvc	r3, #415236096	; 0x18c00000
-  28:	2973726f 	ldmdbcs	r3!, {r0, r1, r2, r3, r5, r6, r9, ip, sp, lr}^
-  2c:	342e3520 	strtcc	r3, [lr], #-1312	; 0xfffffae0
-  30:	3220312e 	eorcc	r3, r0, #-2147483637	; 0x8000000b
-  34:	30363130 	eorscc	r3, r6, r0, lsr r1
-  38:	20393036 	eorscs	r3, r9, r6, lsr r0
-  3c:	6c657228 	sfmvs	f7, 2, [r5], #-160	; 0xffffff60
-  40:	65736165 	ldrbvs	r6, [r3, #-357]!	; 0xfffffe9b
-  44:	415b2029 	cmpmi	fp, r9, lsr #32
-  48:	652f4d52 	strvs	r4, [pc, #-3410]!	; fffff2fe <notmain+0xffff72de>
-  4c:	6465626d 	strbtvs	r6, [r5], #-621	; 0xfffffd93
-  50:	2d646564 	cfstr64cs	mvdx6, [r4, #-400]!	; 0xfffffe70
-  54:	72622d35 	rsbvc	r2, r2, #3392	; 0xd40
-  58:	68636e61 	stmdavs	r3!, {r0, r5, r6, r9, sl, fp, sp, lr}^
-  5c:	76657220 	strbtvc	r7, [r5], -r0, lsr #4
-  60:	6f697369 	svcvs	0x00697369
-  64:	3332206e 	teqcc	r2, #110	; 0x6e
-  68:	35313737 	ldrcc	r3, [r1, #-1847]!	; 0xfffff8c9
-  6c:	Address 0x0000006c is out of bounds.
-
+   0:	3a434347 	bcc	10d0d24 <notmain+0x10c8d14>
+   4:	35312820 	ldrcc	r2, [r1, #-2080]!	; 0xfffff7e0
+   8:	392e343a 	stmdbcc	lr!, {r1, r3, r4, r5, sl, ip, sp}
+   c:	732b332e 			; <UNDEFINED> instruction: 0x732b332e
+  10:	33326e76 	teqcc	r2, #1888	; 0x760
+  14:	37373131 			; <UNDEFINED> instruction: 0x37373131
+  18:	2029312d 	eorcs	r3, r9, sp, lsr #2
+  1c:	2e392e34 	mrccs	14, 1, r2, cr9, cr4, {1}
+  20:	30322033 	eorscc	r2, r2, r3, lsr r0
+  24:	35303531 	ldrcc	r3, [r0, #-1329]!	; 0xfffffacf
+  28:	28203932 	stmdacs	r0!, {r1, r4, r5, r8, fp, ip, sp}
+  2c:	72657270 	rsbvc	r7, r5, #112, 4
+  30:	61656c65 	cmnvs	r5, r5, ror #24
+  34:	00296573 	eoreq	r6, r9, r3, ror r5

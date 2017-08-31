@@ -1,3 +1,6 @@
+N64 protocol: 32 bit message
+
+
 0 A
 1 B
 2 Z

@@ -2,19 +2,22 @@
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 
-extern void PUT32 ( unsigned int, unsigned int );
-extern unsigned int GET32 ( unsigned int );
+//extern void PUT32 ( unsigned int, unsigned int );
+//extern unsigned int GET32 ( unsigned int );
 extern void dummy ( unsigned int );
 
 #define GPFSEL0 0x20200000
 #define GPSET0  0x2020001C
 #define GPCLR0  0x20200028
+#define PUT32(a,b) ((*(volatile unsigned int *)a) = (b))
+#define GET32(a) (*(volatile unsigned int *) a)
+
 
 //-------------------------------------------------------------------------
 int notmain ( void )
 {
     unsigned int ra;
-
+	
     ra=GET32(GPFSEL0);
     ra&=~(7<<9);
     ra|=1<<9;
