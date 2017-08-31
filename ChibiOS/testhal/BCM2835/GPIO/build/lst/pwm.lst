@@ -1,0 +1,221 @@
+ARM GAS  /tmp/ccThnoFK.s 			page 1
+
+
+   1              		.file	"pwm.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              	.Letext0:
+   6              		.section	.debug_info,"",%progbits
+   7              	.Ldebug_info0:
+   8 0000 67000000 		.4byte	0x67
+   9 0004 0400     		.2byte	0x4
+  10 0006 00000000 		.4byte	.Ldebug_abbrev0
+  11 000a 04       		.byte	0x4
+  12 000b 01       		.uleb128 0x1
+  13 000c B4000000 		.4byte	.LASF10
+  14 0010 01       		.byte	0x1
+  15 0011 39000000 		.4byte	.LASF11
+  16 0015 53000000 		.4byte	.LASF12
+  17 0019 00000000 		.4byte	.Ldebug_line0
+  18 001d 02       		.uleb128 0x2
+  19 001e 04       		.byte	0x4
+  20 001f 05       		.byte	0x5
+  21 0020 62010000 		.4byte	.LASF0
+  22 0024 02       		.uleb128 0x2
+  23 0025 04       		.byte	0x4
+  24 0026 07       		.byte	0x7
+  25 0027 0D000000 		.4byte	.LASF1
+  26 002b 02       		.uleb128 0x2
+  27 002c 01       		.byte	0x1
+  28 002d 06       		.byte	0x6
+  29 002e 2D000000 		.4byte	.LASF2
+  30 0032 02       		.uleb128 0x2
+  31 0033 01       		.byte	0x1
+  32 0034 08       		.byte	0x8
+  33 0035 1F000000 		.4byte	.LASF3
+  34 0039 02       		.uleb128 0x2
+  35 003a 02       		.byte	0x2
+  36 003b 05       		.byte	0x5
+  37 003c 93000000 		.4byte	.LASF4
+  38 0040 02       		.uleb128 0x2
+  39 0041 02       		.byte	0x2
+  40 0042 07       		.byte	0x7
+  41 0043 4F010000 		.4byte	.LASF5
+  42 0047 02       		.uleb128 0x2
+  43 0048 08       		.byte	0x8
+  44 0049 05       		.byte	0x5
+  45 004a 74010000 		.4byte	.LASF6
+  46 004e 02       		.uleb128 0x2
+  47 004f 08       		.byte	0x8
+  48 0050 07       		.byte	0x7
+  49 0051 9D000000 		.4byte	.LASF7
+  50 0055 03       		.uleb128 0x3
+  51 0056 04       		.byte	0x4
+  52 0057 05       		.byte	0x5
+  53 0058 696E7400 		.ascii	"int\000"
+  54 005c 02       		.uleb128 0x2
+  55 005d 04       		.byte	0x4
+  56 005e 07       		.byte	0x7
+  57 005f 00000000 		.4byte	.LASF8
+ARM GAS  /tmp/ccThnoFK.s 			page 2
+
+
+  58 0063 02       		.uleb128 0x2
+  59 0064 04       		.byte	0x4
+  60 0065 07       		.byte	0x7
+  61 0066 6B010000 		.4byte	.LASF9
+  62 006a 00       		.byte	0
+  63              		.section	.debug_abbrev,"",%progbits
+  64              	.Ldebug_abbrev0:
+  65 0000 01       		.uleb128 0x1
+  66 0001 11       		.uleb128 0x11
+  67 0002 01       		.byte	0x1
+  68 0003 25       		.uleb128 0x25
+  69 0004 0E       		.uleb128 0xe
+  70 0005 13       		.uleb128 0x13
+  71 0006 0B       		.uleb128 0xb
+  72 0007 03       		.uleb128 0x3
+  73 0008 0E       		.uleb128 0xe
+  74 0009 1B       		.uleb128 0x1b
+  75 000a 0E       		.uleb128 0xe
+  76 000b 10       		.uleb128 0x10
+  77 000c 17       		.uleb128 0x17
+  78 000d 00       		.byte	0
+  79 000e 00       		.byte	0
+  80 000f 02       		.uleb128 0x2
+  81 0010 24       		.uleb128 0x24
+  82 0011 00       		.byte	0
+  83 0012 0B       		.uleb128 0xb
+  84 0013 0B       		.uleb128 0xb
+  85 0014 3E       		.uleb128 0x3e
+  86 0015 0B       		.uleb128 0xb
+  87 0016 03       		.uleb128 0x3
+  88 0017 0E       		.uleb128 0xe
+  89 0018 00       		.byte	0
+  90 0019 00       		.byte	0
+  91 001a 03       		.uleb128 0x3
+  92 001b 24       		.uleb128 0x24
+  93 001c 00       		.byte	0
+  94 001d 0B       		.uleb128 0xb
+  95 001e 0B       		.uleb128 0xb
+  96 001f 3E       		.uleb128 0x3e
+  97 0020 0B       		.uleb128 0xb
+  98 0021 03       		.uleb128 0x3
+  99 0022 08       		.uleb128 0x8
+ 100 0023 00       		.byte	0
+ 101 0024 00       		.byte	0
+ 102 0025 00       		.byte	0
+ 103              		.section	.debug_aranges,"",%progbits
+ 104 0000 14000000 		.4byte	0x14
+ 105 0004 0200     		.2byte	0x2
+ 106 0006 00000000 		.4byte	.Ldebug_info0
+ 107 000a 04       		.byte	0x4
+ 108 000b 00       		.byte	0
+ 109 000c 0000     		.2byte	0
+ 110 000e 0000     		.2byte	0
+ 111 0010 00000000 		.4byte	0
+ 112 0014 00000000 		.4byte	0
+ 113              		.section	.debug_line,"",%progbits
+ 114              	.Ldebug_line0:
+ARM GAS  /tmp/ccThnoFK.s 			page 3
+
+
+ 115 0000 19000000 		.section	.debug_str,"MS",%progbits,1
+ 115      02001300 
+ 115      00000201 
+ 115      FB0E0D00 
+ 115      01010101 
+ 116              	.LASF8:
+ 117 0000 756E7369 		.ascii	"unsigned int\000"
+ 117      676E6564 
+ 117      20696E74 
+ 117      00
+ 118              	.LASF1:
+ 119 000d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 119      20756E73 
+ 119      69676E65 
+ 119      6420696E 
+ 119      7400
+ 120              	.LASF3:
+ 121 001f 756E7369 		.ascii	"unsigned char\000"
+ 121      676E6564 
+ 121      20636861 
+ 121      7200
+ 122              	.LASF2:
+ 123 002d 7369676E 		.ascii	"signed char\000"
+ 123      65642063 
+ 123      68617200 
+ 124              	.LASF11:
+ 125 0039 2E2E2F2E 		.ascii	"../../../os/hal/src/pwm.c\000"
+ 125      2E2F2E2E 
+ 125      2F6F732F 
+ 125      68616C2F 
+ 125      7372632F 
+ 126              	.LASF12:
+ 127 0053 2F686F6D 		.ascii	"/home/hunter/development/chibi/ChibiOS-RPi/testhal/"
+ 127      652F6875 
+ 127      6E746572 
+ 127      2F646576 
+ 127      656C6F70 
+ 128 0086 42434D32 		.ascii	"BCM2835/GPIO\000"
+ 128      3833352F 
+ 128      4750494F 
+ 128      00
+ 129              	.LASF4:
+ 130 0093 73686F72 		.ascii	"short int\000"
+ 130      7420696E 
+ 130      7400
+ 131              	.LASF7:
+ 132 009d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 132      206C6F6E 
+ 132      6720756E 
+ 132      7369676E 
+ 132      65642069 
+ 133              	.LASF10:
+ 134 00b4 474E5520 		.ascii	"GNU C 4.9.3 20150529 (prerelease) -mcpu=arm1176jz-s"
+ 134      4320342E 
+ 134      392E3320 
+ 134      32303135 
+ 134      30353239 
+ARM GAS  /tmp/ccThnoFK.s 			page 4
+
+
+ 135 00e7 202D6D61 		.ascii	" -mabi=apcs-gnu -mno-thumb-interwork -ggdb -O2 -fom"
+ 135      62693D61 
+ 135      7063732D 
+ 135      676E7520 
+ 135      2D6D6E6F 
+ 136 011a 69742D66 		.ascii	"it-frame-pointer -ffunction-sections -fdata-section"
+ 136      72616D65 
+ 136      2D706F69 
+ 136      6E746572 
+ 136      202D6666 
+ 137 014d 7300     		.ascii	"s\000"
+ 138              	.LASF5:
+ 139 014f 73686F72 		.ascii	"short unsigned int\000"
+ 139      7420756E 
+ 139      7369676E 
+ 139      65642069 
+ 139      6E7400
+ 140              	.LASF0:
+ 141 0162 6C6F6E67 		.ascii	"long int\000"
+ 141      20696E74 
+ 141      00
+ 142              	.LASF9:
+ 143 016b 73697A65 		.ascii	"sizetype\000"
+ 143      74797065 
+ 143      00
+ 144              	.LASF6:
+ 145 0174 6C6F6E67 		.ascii	"long long int\000"
+ 145      206C6F6E 
+ 145      6720696E 
+ 145      7400
+ 146              		.ident	"GCC: (15:4.9.3+svn231177-1) 4.9.3 20150529 (prerelease)"
+ARM GAS  /tmp/ccThnoFK.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 pwm.c
+
+NO UNDEFINED SYMBOLS
