@@ -1,0 +1,2 @@
+Code for Adafruit Trinket 3.3V to poll controller and transmit controller state to Raspberry Pi over spi.
+
