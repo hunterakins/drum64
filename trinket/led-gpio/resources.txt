@@ -1,3 +1,0 @@
-The program I got from Matsi relies on the concept of timers in AVR
-Nice introduction here: https://maxembedded.wordpress.com/2011/06/22/introduction-to-avr-timers/
-

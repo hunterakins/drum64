@@ -1,5 +1,4 @@
 
-
 typedef enum {
 	A;
 	B;
