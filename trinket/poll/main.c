@@ -3,20 +3,11 @@
 #include <avr/io.h>
 
 
-// Learned from examples by matsi (https://github.com/geomatsi)
-// Link to original repo:  https://github.com/geomatsi/avr-tests/tree/master/boards/attiny85-bare-metal/apps/led-gpio
-// and articles by Mayank on AVR programming, e.g. https://maxembedded.wordpress.com/2011/06/28/avr-timers-timer1/
-// CREDIT SITUATION: because this file was a copy of matsi's led-gpio main.c, but I've changed almost every line 
-// to follow Max's tutorial. Furthermore, I completely changed the Makefile. Nonetheless, it got me started, so that was invaluable.
-
-// data sheet is the other resource:
-// http://www.atmel.com/images/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf
-// page numbers refer to the data sheet
-
-
 
 volatile uint8_t tick;
-
+volatile uint8_t tock;
+volatile uint32_t controller_state;
+volatile uint32_t received_bits; 
 
 void timer0_init() {
 	/* Note about the control registers:
@@ -36,41 +27,90 @@ void timer0_init() {
 		
 	// initialize timer to 0
 	TCNT0 = 0;
+
 	/* output compare register
 	whatever value is in TCNT0 gets compared to this value
 	at 8MHz, a tick is .125 us
 	8 ticks is 1 us
 	TCNT0 is going 0000, 0001, 0010, 0011, 0100, 0101, 0110, 0111, 1000;
 	*/
-	OCR0A = 8;	
+	OCR0A = 32; // every us	
+	OCR0B = 128; // every 4 us
 
-	// enable compare interrupt:
-	TIMSK |= (1 << OCIE0A);
-	// enable global interrupts
+	// enable compare interrupt for the two counters:
+	TIMSK |= ((1 << OCIE0A) | (1 << OCIE0B));
 
-	// initialize tick
 	tick = 0;
+	tock = 0;
+	controller_state = 0;
+	received_bits = 0;
+
+	// enable global interrupts
 	sei();
 
 }	
 
 
-
 ISR(TIMER0_COMPA_vect) {
-	PORTB ^= (1 << PB1);
+	if (tock < 7) { 
+		if (tick < 3) {
+			PORTB &= (0 << PB1); 
+			tick += 1;
+		}
+		else {
+			PORTB |= (1 << PB1);
+			tick = 0;
+			tock += 1;
+		}
+	}
+	else {          
+		if (tick == 0) {
+			PORTB &= (0 << PB1);
+			tick += 1;
+		}
+		else if (tick < 3) {
+			PORTB |= (1 << PB1);
+			tick += 1;
+		}
+		else {
+			tick = 0;
+			tock += 1;
+		}
+	}	
 }
 
-int main(void)
-{
+ISR(TIMER0_COMPB_vect) {
+	if (tock < 9) {
+		tock += 1;
+	}
+	else if (tock >= 9) {
+		// set PB1 to input
+		OCR0A = 255;
+		DDRB &= (0 << DDB1); 
+		if (received_bits >= 32) {
+		 	received_bits = 0;
+			//set PB1 to output
+			DDRB = (1 << DDB1);
+			tock = 0;
+			OCR0A = 32;
+		}
+		else {
+			// set received_bits bit of controller_state to the input from PB1
+			controller_state |= ((PINB << PB1) << received_bits);
+			received_bits += 1;
+		}
+	}
+}
 
+int main(void) {
 	// set PB1 to output (red LED)
 	DDRB = (1 << DDB1);
 	PORTB |= (1 << PB1);
 
 	timer0_init();
 
-	while(1)
-	{
+	while(1) {
+		_delay_ms(10);
 	}
 }
 

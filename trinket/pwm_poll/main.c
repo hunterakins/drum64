@@ -3,14 +3,12 @@
 #include <avr/io.h>
 
 
-//pwm version of the poll
 // idea is to use pwm output
-// also use a separate timer interrupt that will change the duty cycle
-// basically, I have a 4us square
-// a 0 is represented as a 25% duty cycle, but starts delayed...kinda tricky.
-// a 1 is represented as a 75% duty cycle
-// the polling signal is a  
-
+// trouble with pwm is phase delay...
+// so for example, a 25 % duty cycle looks like -___-___-___, whereas we need ___-___-
+// thus, at the beginning of the string of zeros, we need a 3 second delay.
+// so we go ------___-___-___-___-___-___-___-_---_---
+// 					 ^start					 ^end: delay one us and switch to one cycle of 75%, then keep it high for 300 us...
 volatile uint8_t tick;
 
 
