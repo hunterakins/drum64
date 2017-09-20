@@ -59,52 +59,21 @@ void timer1_init() {
 
 ISR(TIMER0_COMPA_vect) {
 	if (tick == 0) {
-		// send the one signal
-		// interrupt again in 8 us
-		// change the duty cycle to 75%
-		OCR1A = 64;
-		tick = 0;
-		// to run out time before switching to reading
-		for (nop =0; nop<6; nop++) {
-			_NOP();
-		}
-		//disable PWM, clear the PB line
-		TCCR1 &= ~(1 << PWM1A);
-		TCCR1 &= ~(1 << COM1A0);
-		// switch to input
-		DDRB &= ~(1 << DDB1);
-		// debug port
+		OCR0A = 8;
 		PORTB ^= (1 << PB2);
-		// i just completed the ones segment
-		
-		// do the reading in one go, no interrupts since its too fast I think
-		OCR0A = 80;
 		tick = 1;
-		tock = 0;
-		// time to read
-		while (tock < 32) {
-			tock += 1;
-			_NOP();
-			_NOP();
-			//debug
-			PORTB ^= (((PINB >> PIN1) & 1) << PB2);
-		}
-
-		// done reading...
-		tick = 1;
-		// switch PB1 to output
-		DDRB |= (1 << DDB1);
-		// leave PB1 high
-		PORTB |= (1 << PB1);
-		// reset tock for next read
-		tock = 0;
+	}
+	// time to read
+	else if (tick == 1) {
+		// reading will take my full attention
+		OCR0A = 140;
+		PORTB ^= (1 << PB2);
+		tick = 2;
 	}
 	//time to poll 
-	else if (tick == 1) {
-		// debug
+	else if (tick == 2) {
 		PORTB ^= (1 << PB2);
-		OCR0A = 32;
-		tick = 0;
+		tick = 3;
 		// starting the poll
 		// set 25% duty cycle 
 		OCR1A = 191;
@@ -112,6 +81,21 @@ ISR(TIMER0_COMPA_vect) {
 		TCCR1 |= (1 << COM1A0);
 		TCCR1 |= (1 << PWM1A);
 		// interrupt in 28 us
+		OCR0A = 32;
+	}
+	else {
+		PORTB ^= (1 << PB2);
+		// send the one signal
+		// interrupt again in 8 us
+		// change the duty cycle to 75%
+		OCR1A = 64;
+		OCR0A = 8;
+		tick = 0;
+		//disable PWM, clear the PB line
+		TCCR1 &= ~(1 << PWM1A);
+		TCCR1 &= ~(1 << COM1A0);
+		// switch to input
+		DDRB &= ~(1 << DDB1);
 	}
 }
 
@@ -121,7 +105,7 @@ int main(void) {
 	// set PB1 to output (red LED)
 	DDRB = (1 << DDB1) | (1 << DDB2);
 	// set PB1 high;
-	PORTB |= (1 << PB1);
+	PORTB |= (1 << PB2);
 	uint8_t i = 0;
 	while(1) {
 		;

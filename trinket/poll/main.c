@@ -4,6 +4,8 @@
 
 
 
+#define _NOP() do { __asm__ __volatile__ ("nop"); } while (0)
+
 volatile uint8_t tick;
 volatile uint8_t tock;
 volatile uint32_t controller_state;
@@ -107,10 +109,25 @@ int main(void) {
 	DDRB = (1 << DDB1);
 	PORTB |= (1 << PB1);
 
-	timer0_init();
+	//timer0_init();
 
 	while(1) {
-		_delay_ms(10);
+		_NOP();
+		PORTB ^= (1 << PB1);
+		_NOP();
+		PORTB ^= (1 << PB1);
+		_NOP();
+		PORTB ^= (1 << PB1);
+		_NOP();
+		PORTB ^= (1 << PB1);
+		_NOP();
+		PORTB ^= (1 << PB1);
+		_NOP();
+		PORTB ^= (1 << PB1);
+		_NOP();
+		PORTB ^= (1 << PB1);
+		_NOP();
+		PORTB ^= (1 << PB1);
 	}
 }
 
