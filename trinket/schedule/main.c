@@ -2,12 +2,13 @@
 #include <util/delay.h>
 #include <avr/io.h>
 
-// this NOP takes 500 ns
-#define _NOP() do { __asm__ __volatile__ ("nop"); } while (0)
+// this NOP takes 250 ns (two instructions probs)
+#define  do { __asm__ __volatile__ ("nop"); } while (0)
 volatile uint8_t tick;
 volatile uint8_t tock;
 volatile uint32_t controller;
 volatile char nop;
+uint8_t i;
 
 void timer0_init() {
 	
@@ -39,7 +40,7 @@ void timer0_init() {
 void timer1_init() {
 
 	// enable compare output mode	
-	TCCR1 |= (1 << COM1A0) | (1 << COM1A1);
+	TCCR1 |= ((1 << COM1A0) | (1 << COM1A1));
 
 	// enable pulse width modulator
 	TCCR1 |= (1 << PWM1A);
@@ -59,43 +60,249 @@ void timer1_init() {
 
 ISR(TIMER0_COMPA_vect) {
 	if (tick == 0) {
-		OCR0A = 8;
-		PORTB ^= (1 << PB2);
+		OCR0A = 218;
 		tick = 1;
-	}
-	// time to read
-	else if (tick == 1) {
-		// reading will take my full attention
-		OCR0A = 140;
-		PORTB ^= (1 << PB2);
-		tick = 2;
+		//disable PWM, clear the PB line
+		TCCR1 &= ~(1 << PWM1A);
+		TCCR1 &= ~((1 << COM1A1) | (1 << COM1A0));
+		// switch to input
+		DDRB &= ~(1 << DDB1);
+		tock = 0;
+		//PORTB ^= (1 << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		PORTB = (((PINB >> PINB1) & 1) << PB2);
+		tick = 1;
+		// switch PB1 to output
+		DDRB |= (1 << DDB1);
+		PORTB = ((1 << PB1) | (1 << PB2));
 	}
 	//time to poll 
-	else if (tick == 2) {
-		PORTB ^= (1 << PB2);
-		tick = 3;
+	else if (tick == 1) {
+		// interrupt in 28 us
+		OCR0A = 32;
+		tick = 2;
 		// starting the poll
 		// set 25% duty cycle 
 		OCR1A = 191;
 		// switch on PWM
-		TCCR1 |= (1 << COM1A0);
+		TCCR1 |= ((1 << COM1A1) | (1 << COM1A0));
 		TCCR1 |= (1 << PWM1A);
-		// interrupt in 28 us
-		OCR0A = 32;
 	}
 	else {
-		PORTB ^= (1 << PB2);
 		// send the one signal
 		// interrupt again in 8 us
 		// change the duty cycle to 75%
 		OCR1A = 64;
 		OCR0A = 8;
 		tick = 0;
-		//disable PWM, clear the PB line
-		TCCR1 &= ~(1 << PWM1A);
-		TCCR1 &= ~(1 << COM1A0);
-		// switch to input
-		DDRB &= ~(1 << DDB1);
+		PORTB |= (1 << PB2);
 	}
 }
 
@@ -105,8 +312,6 @@ int main(void) {
 	// set PB1 to output (red LED)
 	DDRB = (1 << DDB1) | (1 << DDB2);
 	// set PB1 high;
-	PORTB |= (1 << PB2);
-	uint8_t i = 0;
 	while(1) {
 		;
 	}
