@@ -112,22 +112,15 @@ int main(void) {
 	//timer0_init();
 
 	while(1) {
-		_NOP();
-		PORTB ^= (1 << PB1);
-		_NOP();
-		PORTB ^= (1 << PB1);
-		_NOP();
-		PORTB ^= (1 << PB1);
-		_NOP();
-		PORTB ^= (1 << PB1);
-		_NOP();
-		PORTB ^= (1 << PB1);
-		_NOP();
-		PORTB ^= (1 << PB1);
-		_NOP();
-		PORTB ^= (1 << PB1);
-		_NOP();
-		PORTB ^= (1 << PB1);
+		int i =0;
+		for (i=0;i<100;i++){
+			_delay_ms(10);
+		}
+		PORTB &= ~(1 << PB1);
+		PORTB &= ~(1 << PB2);
+		_delay_ms(1);
+		PORTB |= (1 << PB1);
+		PORTB |= (1 << PB2);
 	}
 }
 
