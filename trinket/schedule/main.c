@@ -41,7 +41,7 @@ void timer1_init() {
 	TCCR1 |= (1 << CS12);
 	// in us
 	OCR1A = 128; 
-	// enable intterups
+	// enable interrupts
 	TIMSK |= (1 << OCIE1A);
 }
 
@@ -86,6 +86,7 @@ void pin_interrupt_init() {
 
 void pin_interrupt_disable() {
 	PCMSK &= ~(1 << PCINT4);
+	MCUCR |= (1 | ISC01) | (1 | ISC00);
 }
 
 
@@ -112,9 +113,11 @@ ISR(TIMER1_COMPA_vect) {
 	// let's relax for 32 seconds
 	OCR0A = 32;
 	// move into next phase of timer0 interrups
-	tick = 2;
+	tick = 3;
 	// disable pin interrupts...
 	pin_interrupt_disable();
+	pwm_init();
+	OCR1A = 100;
 }
 	
 ISR(TIMER0_COMPA_vect) {
@@ -122,7 +125,6 @@ ISR(TIMER0_COMPA_vect) {
 	if (tick == 0) {
 		// free up timer 1
 		pwm_disable();
-		OCR1A = 128;
 		// set interrupt to halt these short interrupts
 		timer1_init();
 		tick = 1;
@@ -130,22 +132,23 @@ ISR(TIMER0_COMPA_vect) {
 	}
 	else if (tick == 1) {
 		// time to start reading
-		OCR0A = 4;
+		OCR0A = 2;
+		tick = 2;
 		pin_interrupt_init();
 	}
 	// short poll times
-	else if (tick == 1) {
+	else if (tick == 2) {
 		flag ^= 1;
 	}
 	//time to poll 	
-	else if (tick == 2) {
+	else if (tick == 3) {
 		// set 25% duty cycle 
 		OCR1B = 191;
 		// switch on PWM
 		pwm_enable();
 		// interrupt in 32 us (adjust depending on other instructions)
 		OCR0A = 28;
-		tick = 2;
+		tick = 4;
 	}
 	else {
 		// send the one signal
