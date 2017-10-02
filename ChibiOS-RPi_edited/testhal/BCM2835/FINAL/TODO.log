@@ -1,0 +1,7 @@
+todo:
+-change audio output samples to 48kHz. or 96kHz? ... and 16bits
+-implement analog stick functionality. perhaps X and Y control ... amplitude + pitch?
+-interface with better DAC. with I2S, none of this I2C BS.
+-interface with ATTINY for polling (use SPI)
+-use signed integers instead of unsigned. and 16bits for audio output ..?
+-ideally NO PAUSES during polling -- current iteration skips it to avoid polling noise
