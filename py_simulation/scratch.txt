@@ -1,0 +1,58 @@
+steps:
+  1) load ALL SAMPLES into memory
+  2) other initialization needed
+  3) run poll interrupt
+
+
+
+  # DONE function to parse keystrokes into 32-button array
+  # need function to write buffer, based on current sign-of-the-times
+  # need function to start/stop loop
+  # need function to switch drum sounds (let's start with 2 drum sounds)
+  # need function to quantize loop (hard, but do-able eventually)
+
+
+Functions of buttons:
+  # all onsets
+  # a = bass
+  # b = snare
+  # c_down = high-tom
+  # c_left = low-tom
+  # c_right = hi-hat closed
+  # c_up = hi-hat open
+  # right = ride cymbal
+
+  # z = LOOP #LEDs for loops
+  # press once to set loop beginning
+  # press twice to set loop ending
+
+  # analog stick
+  # Y is amplitude
+  # X is ??? (don't worry about it yet) sets lo-pass, hi-pass filter??
+
+  # left_button = DRUM BREAK
+  # dpad right, left sets drum sounds
+  # dpad up, down sets quantization??? OR
+  # start = stop loop, delete loop
+
+
+# hardware architecture
+# constant interrupts at 44.1 kHz ~= 22 us.
+# way of making one pin oscillate at 44.1kHz and using that as an interrupt signal?
+
+# constant interrupts at 1 MHz = 1us
+#   ACTUALLY might make sense if it's twice as fast. at 2MHz. so we have the "in betweens"
+#   0: variables: where are we in polling output/ controller input
+#   1: see if need to write output pin (I imagine, so 9bit * 4us / bit = array of 36 values
+#   2: see if we need to read input. write "controller input"
+
+# main loop: actually do the computation here!!
+# 1) polling? or reading?
+# 2) computation from current read signal
+# 3) start polling (when counter reaches 300 = 300 us)
+
+# quantization? how the heck will that work???
+
+# different sounds:
+# famous drum machine. 808.
+# famous n64 sounds. (sample from various video games??)
